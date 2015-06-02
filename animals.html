@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<title>
+Do you know the name of this animal?
+</title>
+<meta charset=utf-8>
+<link rel=stylesheet href=css/style.css />
+<link rel=stylesheet href=css/mobile.css />
+
+</head>
+<body>
+
+<div id=gallery></div>
+
+<template>
+<div class=animal>
+<header>
+<h1>${jmx}</h1>
+<h2>${en}</h2>
+<h2>${es}</h2>
+</header>
+<figure>
+<img src=images/${en}.jpg>
+<figcaption>
+</figcaption>
+</figure>
+
+</div>
+</template>
+
+<div style=display:none class=animal>
+<header>
+<h1>ma’a</h1>
+<h2>raccoon</h2>
+<h2>mapache</h2>
+</header>
+<figure>
+<img src=images/raccoon.jpg>
+<figcaption>
+By Darkone (Own work) [<a href="http://creativecommons.org/licenses/by-sa/2.5">CC BY-SA 2.5</a>], <a href="https://commons.wikimedia.org/wiki/File%3ARaccoon_(Procyon_lotor)_2.jpg">via Wikimedia Commons</a>
+</figcaption>
+</figure>
+
+</div>
+
+<script src=../../js/template.js></script>
+<script src=../../js/fetch.js></script>
+<script>
+var 
+  gallery = document.querySelector('#gallery'),
+  template = document.querySelector('template').innerHTML;
+
+fetch('animals.json')
+  .then(function(json){ return json.json() })
+  .then(function(animals){
+    animals.forEach(function(animal){
+       gallery.insertAdjacentHTML('beforeend', template.template(animal))
+    })
+  })
+  .catch(function(error){
+     console.log(error)
+  })
+
+</script>
+</body>
+</html>
